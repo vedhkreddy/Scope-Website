@@ -1,0 +1,242 @@
+/* News Grid Layout */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    margin-top: 1.5rem;
+}
+
+.news-card {
+    max-width: 100%;
+    margin-bottom: 0;
+}
+/* style.css for The Scope - Red & White, Academic Font */
+
+body {
+    margin: 0;
+    font-family: 'Lora', 'Merriweather', serif;
+    background: #fafbfc;
+    color: #222;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+}
+
+
+.navbar {
+    background: #fff;
+    color: #111;
+    border-bottom: 1.5px solid #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 56px;
+}
+
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.03em;
+}
+
+
+.rufus-placeholder {
+    width: 36px;
+    height: 36px;
+    background: #f7f7f7;
+    color: #c62828;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 1.5px solid #c62828;
+}
+
+
+.site-title {
+    letter-spacing: 1px;
+}
+
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+
+.navbar-links a {
+    color: #111;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.2s, border-bottom 0.2s;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+}
+
+.navbar-links a.active {
+    color: #c62828;
+    border-bottom: 2.5px solid #c62828;
+    font-weight: 600;
+}
+
+.navbar-links a:hover {
+    color: #c62828;
+    border-bottom: 2.5px solid #222;
+    background: none;
+}
+
+
+main {
+    max-width: 900px;
+    margin: 2.5rem auto 2rem auto;
+    padding: 0 1.5rem;
+}
+
+
+.footer {
+    background: #f7f7f7;
+    color: #c62828;
+    text-align: center;
+    padding: 1.2rem 0 1rem 0;
+    font-size: 1rem;
+    border-top: 1px solid #ececec;
+    margin-top: 3rem;
+}
+
+
+h1, h2, h3, h4 {
+    font-family: 'Lora', 'Merriweather', serif;
+    color: #111;
+    margin-top: 0;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
+h1.accent, h2.accent, h3.accent, h4.accent {
+    color: #c62828;
+}
+
+
+.button-red {
+    background: #fff;
+    color: #c62828;
+    border: 1.5px solid #c62828;
+    padding: 0.5em 1.1em;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 500;
+    box-shadow: none;
+}
+.button-red:hover {
+    background: #222;
+    color: #fff;
+    border: 1.5px solid #222;
+}
+
+
+.card {
+    background: #fff;
+    border: 1.5px solid #222;
+    border-radius: 10px;
+    box-shadow: 0 1.5px 6px rgba(0,0,0,0.03);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* News Card Banner */
+.news-card {
+    padding: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1.5px solid #222;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 2rem;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+}
+.news-banner {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    background: #eee;
+    border-bottom: 1.5px solid #222;
+}
+.news-content {
+    padding: 1.1rem 1.3rem 1.2rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.news-title {
+    color: #111;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.2rem 0;
+}
+.news-meta {
+    color: #c62828;
+    font-size: 0.98rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+}
+.news-preview {
+    color: #222;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+
+@media (max-width: 1000px) {
+    .news-grid {
+        gap: 1.2rem;
+    }
+}
+
+@media (max-width: 700px) {
+    .navbar-container, main {
+        padding: 0 0.7rem;
+    }
+    .navbar-links {
+        gap: 0.7rem;
+    }
+    .card {
+        padding: 0.8rem;
+    }
+    .news-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .news-card {
+        max-width: 100%;
+    }
+    .news-banner {
+        height: 110px;
+    }
+}

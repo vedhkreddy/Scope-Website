@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Scope | BISV Science Research Journal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <!-- Placeholder for Rufus mascot -->
+                <div class="rufus-placeholder">Rufus</div>
+                <span class="site-title">The Scope</span>
+            </div>
+            <ul class="navbar-links">
+                <li><a href="/" {% if request.path == '/' %}class="active"{% endif %}>Home</a></li>
+                <li><a href="/publications" {% if request.path == '/publications' %}class="active"{% endif %}>Publications</a></li>
+                <li><a href="/news" {% if request.path == '/news' %}class="active"{% endif %}>Science in the News</a></li>
+                <li><a href="/submission-guide" {% if request.path == '/submission-guide' %}class="active"{% endif %}>Submission Guide</a></li>
+                <li><a href="/about" {% if request.path == '/about' %}class="active"{% endif %}>About Us</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+        <div class="footer-content">
+            &copy; {{ 2026 }} The Scope, BISV Science Research Journal
+        </div>
+    </footer>
+</body>
+</html>

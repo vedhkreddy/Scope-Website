@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="accent">Past Publications</h1>
+
+{% if publications and publications|length > 0 %}
+    {% for p in publications %}
+    <div class="card" style="display:flex;align-items:center;gap:2rem;flex-wrap:wrap;">
+        {% if p.cover_url %}
+        <div style="flex:1;min-width:160px;max-width:200px;">
+            <img src="{{ p.cover_url }}" alt="Cover" style="width:100%;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+        </div>
+        {% endif %}
+        <div style="flex:2;min-width:220px;">
+            <h2>{{ p.title }}</h2>
+            <p><em>Published: {{ p.date }}</em></p>
+            <p>{{ p.description }}</p>
+            {% if p.pdf_url %}
+                <a href="{{ p.pdf_url }}" class="button-red" target="_blank" download>Download PDF</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div style="color:#888; text-align:center; width:100%; padding:2em 0;">No publications yet.</div>
+{% endif %}
+{% endblock %}

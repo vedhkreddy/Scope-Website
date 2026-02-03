@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card" style="max-width: 400px; margin: 3rem auto 0 auto; text-align: center;">
+    <h2>Staff Portal Login</h2>
+    <form method="post">
+        <input type="password" name="password" placeholder="Admin Password" style="width: 90%; padding: 0.7em; margin-bottom: 1.2em; border-radius: 5px; border: 1.5px solid #222; font-size: 1.1em;">
+        <br>
+        <button type="submit" class="button-red" style="width: 100%;">Login</button>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div style="margin-top:1em;">
+        {% for category, message in messages %}
+          <div style="color: #c62828; font-weight: 500;">{{ message }}</div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+</div>
+{% endblock %}

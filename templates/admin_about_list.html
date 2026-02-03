@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card" style="max-width: 900px; margin: 2.5rem auto 0 auto;">
+    <h2>Manage About Us Team</h2>
+    <a href="{{ url_for('admin_about_add') }}" class="button-red" style="margin-bottom:1.5em;">Add New Member</a>
+    <table style="width:100%; margin-top:1.5em; border-collapse:collapse;">
+        <thead>
+            <tr style="border-bottom:1.5px solid #222;">
+                <th style="text-align:left; padding:0.5em;">Image</th>
+                <th style="text-align:left; padding:0.5em;">Name</th>
+                <th style="text-align:left; padding:0.5em;">Role</th>
+                <th style="text-align:left; padding:0.5em;">Bio</th>
+                <th style="text-align:left; padding:0.5em;">Order</th>
+                <th style="text-align:left; padding:0.5em;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for m in team %}
+            <tr style="border-bottom:1px solid #eee;">
+                <td style="padding:0.5em;">
+                    {% if m.image_url %}<img src="{{ m.image_url }}" alt="photo" style="height:40px; border-radius:50%;">{% endif %}
+                </td>
+                <td style="padding:0.5em;">{{ m.name }}</td>
+                <td style="padding:0.5em;">{{ m.role }}</td>
+                <td style="padding:0.5em;">{{ m.bio }}</td>
+                <td style="padding:0.5em;">{{ m.order + 1 }}</td>
+                <td style="padding:0.5em;">
+                    <a href="{{ url_for('admin_about_edit', member_id=m.id) }}" class="button-red" style="padding:0.3em 0.7em; font-size:0.95em;">Edit</a>
+                    <form method="post" action="{{ url_for('admin_about_delete', member_id=m.id) }}" style="display:inline;">
+                        <button type="submit" class="button-red" style="background:#fff; color:#c62828; border:1.5px solid #c62828; padding:0.3em 0.7em; font-size:0.95em; margin-left:0.5em;">Delete</button>
+                    </form>
+                    <form method="post" action="{{ url_for('admin_about_move', member_id=m.id, direction='up') }}" style="display:inline;">
+                        <button type="submit" class="button-red" style="background:#fff; color:#222; border:1.5px solid #222; padding:0.3em 0.7em; font-size:0.95em; margin-left:0.5em;">↑</button>
+                    </form>
+                    <form method="post" action="{{ url_for('admin_about_move', member_id=m.id, direction='down') }}" style="display:inline;">
+                        <button type="submit" class="button-red" style="background:#fff; color:#222; border:1.5px solid #222; padding:0.3em 0.7em; font-size:0.95em; margin-left:0.2em;">↓</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="6" style="padding:1.5em; color:#888; text-align:center;">No team members yet.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin') }}" class="button-red" style="margin-top:2em;">Back to Dashboard</a>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div style="margin-top:1em;">
+        {% for category, message in messages %}
+          <div style="color: #c62828; font-weight: 500;">{{ message }}</div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+</div>
+{% endblock %}

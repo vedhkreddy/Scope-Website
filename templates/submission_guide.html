@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="accent">Submission Guide</h1>
+<div class="card" style="max-width:900px;margin:2rem auto 0 auto;">
+    {% if guide_html %}
+        <div>{{ guide_html|safe }}</div>
+    {% else %}
+        <div style="color:#888;">No submission guide content yet.</div>
+    {% endif %}
+</div>
+{% endblock %}

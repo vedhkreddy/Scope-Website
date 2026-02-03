@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card" style="max-width: 700px; margin: 3rem auto 0 auto; text-align: center;">
+    <h2>Staff Portal</h2>
+    <p>Welcome to the admin dashboard. Here you will be able to manage Science in the News, Publications, Homepage, Rufus, and About Us content.</p>
+    <a href="{{ url_for('admin_news') }}" class="button-red" style="margin:1.2em 0 0.5em 0;">Manage Science in the News</a>
+    <a href="{{ url_for('admin_publications') }}" class="button-red" style="margin:1.2em 0 0.5em 0;">Manage Publications</a>
+    <a href="{{ url_for('admin_submission_guide') }}" class="button-red" style="margin:1.2em 0 0.5em 0;">Edit Submission Guide</a>
+    <a href="{{ url_for('admin_about') }}" class="button-red" style="margin:1.2em 0 0.5em 0;">Manage About Us Team</a>
+    <a href="{{ url_for('admin_logout') }}" class="button-red" style="margin-top: 1.5em;">Logout</a>
+    <hr style="margin:2em 0;">
+    <div style="color:#888;">(Feature controls coming soon...)</div>
+</div>
+{% endblock %}

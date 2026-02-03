@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card" style="max-width: 600px; margin: 2.5rem auto 0 auto;">
+    <h2>{{ action }} Publication</h2>
+    <form method="post" enctype="multipart/form-data">
+        <label>Title<br>
+            <input type="text" name="title" value="{{ pub.title if pub else '' }}" required style="width:100%;padding:0.6em;margin-bottom:1em;">
+        </label>
+        <label>Date<br>
+            <input type="date" name="date" value="{{ pub.date if pub else '' }}" required style="width:100%;padding:0.6em;margin-bottom:1em;">
+        </label>
+        <label>Description<br>
+            <textarea name="description" rows="4" required style="width:100%;padding:0.6em;margin-bottom:1em;">{{ pub.description if pub else '' }}</textarea>
+        </label>
+        <label>PDF (required)
+            {% if pub and pub.pdf_url %}<br><a href="{{ pub.pdf_url }}" target="_blank" class="button-red" style="margin-bottom:0.5em;">Current PDF</a>{% endif %}<br>
+            <input type="file" name="pdf" accept="application/pdf" {% if not pub %}required{% endif %} style="margin-bottom:1em;">
+        </label>
+        <label>Cover Image (optional)
+            {% if pub and pub.cover_url %}<br><img src="{{ pub.cover_url }}" alt="cover" style="height:60px; border-radius:4px; margin-bottom:0.5em;">{% endif %}<br>
+            <input type="file" name="cover" accept="image/*" style="margin-bottom:1em;">
+        </label>
+        <div style="margin-top:1.5em;">
+            <button type="submit" class="button-red">{{ action }}</button>
+            <a href="{{ url_for('admin_publications') }}" class="button-red" style="background:#fff;color:#c62828;border:1.5px solid #c62828;margin-left:1em;">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

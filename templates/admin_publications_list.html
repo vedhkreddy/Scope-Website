@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card" style="max-width: 900px; margin: 2.5rem auto 0 auto;">
+    <h2>Manage Publications</h2>
+    <a href="{{ url_for('admin_publications_add') }}" class="button-red" style="margin-bottom:1.5em;">Add New Publication</a>
+    <table style="width:100%; margin-top:1.5em; border-collapse:collapse;">
+        <thead>
+            <tr style="border-bottom:1.5px solid #222;">
+                <th style="text-align:left; padding:0.5em;">Title</th>
+                <th style="text-align:left; padding:0.5em;">Date</th>
+                <th style="text-align:left; padding:0.5em;">Description</th>
+                <th style="text-align:left; padding:0.5em;">PDF</th>
+                <th style="text-align:left; padding:0.5em;">Cover</th>
+                <th style="text-align:left; padding:0.5em;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for p in publications %}
+            <tr style="border-bottom:1px solid #eee;">
+                <td style="padding:0.5em;">{{ p.title }}</td>
+                <td style="padding:0.5em;">{{ p.date }}</td>
+                <td style="padding:0.5em;">{{ p.description }}</td>
+                <td style="padding:0.5em;">
+                    {% if p.pdf_url %}<a href="{{ p.pdf_url }}" target="_blank" class="button-red" style="padding:0.3em 0.7em; font-size:0.95em;">PDF</a>{% endif %}
+                </td>
+                <td style="padding:0.5em;">
+                    {% if p.cover_url %}<img src="{{ p.cover_url }}" alt="cover" style="height:40px; border-radius:4px;">{% endif %}
+                </td>
+                <td style="padding:0.5em;">
+                    <a href="{{ url_for('admin_publications_edit', pub_id=p.id) }}" class="button-red" style="padding:0.3em 0.7em; font-size:0.95em;">Edit</a>
+                    <form method="post" action="{{ url_for('admin_publications_delete', pub_id=p.id) }}" style="display:inline;">
+                        <button type="submit" class="button-red" style="background:#fff; color:#c62828; border:1.5px solid #c62828; padding:0.3em 0.7em; font-size:0.95em; margin-left:0.5em;">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="6" style="padding:1.5em; color:#888; text-align:center;">No publications yet.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin') }}" class="button-red" style="margin-top:2em;">Back to Dashboard</a>
+</div>
+{% endblock %}

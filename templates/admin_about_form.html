@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card" style="max-width: 600px; margin: 2.5rem auto 0 auto;">
+    <h2>{{ action }} Team Member</h2>
+    <form method="post" enctype="multipart/form-data">
+        <label>Name<br>
+            <input type="text" name="name" value="{{ member.name if member else '' }}" required style="width:100%;padding:0.6em;margin-bottom:1em;">
+        </label>
+        <label>Role<br>
+            <input type="text" name="role" value="{{ member.role if member else '' }}" required style="width:100%;padding:0.6em;margin-bottom:1em;">
+        </label>
+        <!-- Bio/Description field removed -->
+        <label>Photo
+            {% if member and member.image_url %}<br><img src="{{ member.image_url }}" alt="photo" style="height:60px; border-radius:50%; margin-bottom:0.5em;">{% endif %}<br>
+            <input type="file" name="image" accept="image/*" style="margin-bottom:1em;">
+        </label>
+        <div style="margin-top:1.5em;">
+            <button type="submit" class="button-red">{{ action }}</button>
+            <a href="{{ url_for('admin_about') }}" class="button-red" style="background:#fff;color:#c62828;border:1.5px solid #c62828;margin-left:1em;">Cancel</a>
+        </div>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div style="margin-top:1em;">
+        {% for category, message in messages %}
+          <div style="color: #c62828; font-weight: 500;">{{ message }}</div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+</div>
+{% endblock %}

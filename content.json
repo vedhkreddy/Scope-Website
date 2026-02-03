@@ -1,0 +1,55 @@
+{
+  "site": {
+    "title": "The Scope",
+    "mascot_svg_url": "/static/uploads/rufus.svg",
+    "mission": "Fostering scientific curiosity and communication at BASIS Independent Silicon Valley."
+  },
+  "publications": [
+    {
+      "id": "528735a680d445e381af944890c5699d",
+      "title": "asdf",
+      "date": "2026-02-20",
+      "description": "asdf",
+      "pdf_url": "/static/pdfs/pub_5746d583b1644bf19c83cd79c879b102_4.2.1_tech_based_attacks_guided_notes.pdf",
+      "cover_url": "/static/uploads/pubcover_853cc0dd47f5494191d1bba8d2fc0088_8B9A2892.JPG"
+    },
+    {
+      "id": "a9196ccaf3024d7f8894f228a916a1c1",
+      "title": "Example Publication",
+      "date": "2026-02-20",
+      "description": "asdf",
+      "pdf_url": "/static/pdfs/pub_472aaa78df004e0fa5ffa0368eb6c06d_4.2.1_Activity__Technology-Based_Attacks_1.pdf",
+      "cover_url": ""
+    }
+  ],
+  "news": [
+    {
+      "id": "802cb15498dd496abfe9bc55ebb4c77e",
+      "title": "example",
+      "author": "Vedh Reddy",
+      "preview": "example",
+      "full_text": "example",
+      "date": "2026-01-22",
+      "image_url": "/static/uploads/news_94f4eb4f3e4e48a1a72b8a9b926abb1a_Screenshot_2026-01-19_at_11.06.41_PM.png"
+    },
+    {
+      "id": "272567311eaf4642b4645eb278946a7d",
+      "title": "asdfasdf",
+      "author": "asdfasdf",
+      "preview": "asdf",
+      "full_text": "asldfj;lasdkf;alsdjf",
+      "date": "2026-01-15",
+      "image_url": "/static/uploads/news_cea3011f42254a1d8f4004c77bf4ace3_Screenshot_2025-12-15_at_9.34.01_PM.png"
+    }
+  ],
+  "about": [
+    {
+      "id": "ba91269d79e04351afd3b017d207b054",
+      "name": "Dr. Karen Allendoerfer",
+      "role": "Club Advisor",
+      "image_url": "/static/uploads/about_240091bc5fe2480dbf2b479571505e1c_8B9A2892.JPG",
+      "order": 0
+    }
+  ],
+  "submission_guide": "# Journal Submissions \u2013 The Scope\r\n\r\nThe Scope is the student-run science and research journal of BASIS Independent Silicon Valley. We welcome original, well-researched work from high school students across a wide range of disciplines. Our goal is to provide a platform for students to engage in academic-style writing and share their ideas with a broader audience.\r\n\r\n---\r\n\r\n## Manuscript Types\r\n\r\nWe accept manuscripts from **all academic disciplines**, including but not limited to:\r\n\r\n* **STEM** (Biology, Chemistry, Physics, Computer Science, Engineering, Environmental Science, Mathematics)\r\n* **Social Sciences** (Economics, Psychology, Sociology, Political Science)\r\n* **Humanities** (History, Philosophy, Literature, Ethics)\r\n* **Interdisciplinary Research** (e.g., science + policy, technology + ethics)\r\n\r\nAccepted formats include:\r\n\r\n* Original research papers\r\n* Literature reviews\r\n* Data-driven analyses\r\n* Theoretical or conceptual papers\r\n* Case studies\r\n* Extended research essays\r\n\r\n> Papers submitted to *The Scope* **may also be submitted to or published in other journals**. Please disclose prior or concurrent submissions at the time of submission.\r\n\r\n---\r\n\r\n## Authorship Eligibility\r\n\r\n* At least **one author must be a current high school student**.\r\n* Collaborative papers are encouraged.\r\n* Mentors (teachers, professors, researchers) may be acknowledged but **should not be listed as authors** unless they made a substantial intellectual contribution.\r\n\r\n---\r\n\r\n## Manuscript Length\r\n\r\nRecommended lengths (flexible depending on topic):\r\n\r\n* **Research papers:** 2,000\u20135,000 words\r\n* **Literature reviews:** 1,500\u20134,000 words\r\n* **Essays / analyses:** 1,200\u20133,000 words\r\n\r\nWord count includes main text but excludes references, figures, and appendices.\r\n\r\n---\r\n\r\n## Formatting Guidelines\r\n\r\nPlease submit manuscripts in **Google Docs or PDF format**.\r\n\r\n### General Formatting\r\n\r\n* Font: Times New Roman or similar serif font\r\n* Font size: 12 pt\r\n* Spacing: Double-spaced\r\n* Margins: 1 inch on all sides\r\n* Page numbers included\r\n\r\n### Structure\r\n\r\nManuscripts should generally follow this structure (where applicable):\r\n\r\n1. **Title**\r\n2. **Author(s)** and affiliation(s)\r\n3. **Abstract** (150\u2013250 words)\r\n4. **Introduction**\r\n5. **Methods / Approach** (if applicable)\r\n6. **Results / Findings** (if applicable)\r\n7. **Discussion**\r\n8. **Conclusion**\r\n9. **References**\r\n\r\n---\r\n\r\n## Citations and References\r\n\r\nProper citation is required for all sources.\r\n\r\nAccepted citation styles:\r\n\r\n* APA\r\n* MLA\r\n* Chicago\r\n\r\nChoose **one style and use it consistently** throughout the paper.\r\n\r\n---\r\n\r\n## Figures, Tables, and Data\r\n\r\n* Figures and tables should be clearly labeled and referenced in the text.\r\n* Include captions for all visuals.\r\n* If original data is used, briefly describe how it was collected.\r\n* Any reused figures or datasets must be properly cited.\r\n\r\n---\r\n\r\n## Originality and Academic Integrity\r\n\r\n* All submissions must be **original work**.\r\n* Plagiarism, including improper paraphrasing or uncited AI-generated text, will result in rejection.\r\n* AI tools may be used for brainstorming or editing assistance, but **the intellectual work must be the author\u2019s own**.\r\n\r\n---\r\n\r\n## Review Process\r\n\r\n1. **Initial Screening** \u2013 Editors check for scope, clarity, and formatting.\r\n2. **Editorial Review** \u2013 Manuscripts are reviewed by student editors with subject familiarity.\r\n3. **Revisions** \u2013 Authors may be asked to revise and resubmit.\r\n4. **Final Decision** \u2013 Accepted papers are scheduled for publication.\r\n\r\nThe review process is designed to be **constructive and educational**.\r\n\r\n---\r\n\r\n## Submission Requirements\r\n\r\nWhen submitting, please include:\r\n\r\n* The manuscript file\r\n* A short **author bio** (2\u20133 sentences)\r\n* Disclosure of any prior or concurrent submissions\r\n* Contact email for the corresponding author\r\n\r\n---\r\n\r\n## Publication\r\n\r\n* All accepted papers will be published on *The Scope* website.\r\n* Authors retain full rights to their work.\r\n* Publication is free; there are **no submission or publication fees**.\r\n\r\n---\r\n\r\n## Questions\r\n\r\nFor questions regarding submissions, formatting, or suitability of a topic, please contact the editorial team through the *The Scope* website.\r\n\r\nWe look forward to reading your work and supporting student-led research."
+}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card" style="max-width: 600px; margin: 2.5rem auto 0 auto;">
+    <h2>{{ action }} Science in the News Article</h2>
+    <form method="post" enctype="multipart/form-data">
+        <label>Title<br>
+            <input type="text" name="title" value="{{ news_item.title if news_item else '' }}" required style="width:100%;padding:0.6em;margin-bottom:1em;">
+        </label>
+        <label>Author<br>
+            <input type="text" name="author" value="{{ news_item.author if news_item else '' }}" required style="width:100%;padding:0.6em;margin-bottom:1em;">
+        </label>
+        <label>Preview<br>
+            <input type="text" name="preview" value="{{ news_item.preview if news_item else '' }}" maxlength="180" required style="width:100%;padding:0.6em;margin-bottom:1em;">
+        </label>
+        <label>Full Text<br>
+            <textarea name="full_text" rows="7" required style="width:100%;padding:0.6em;margin-bottom:1em;">{{ news_item.full_text if news_item else '' }}</textarea>
+        </label>
+        <label>Date<br>
+            <input type="date" name="date" value="{{ news_item.date if news_item else '' }}" style="width:100%;padding:0.6em;margin-bottom:1em;">
+        </label>
+        <label>Banner Image
+            {% if news_item and news_item.image_url %}<br><img src="{{ news_item.image_url }}" alt="banner" style="height:60px; border-radius:4px; margin-bottom:0.5em;">{% endif %}<br>
+            <input type="file" name="image" accept="image/*" style="margin-bottom:1em;">
+        </label>
+        <div style="margin-top:1.5em;">
+            <button type="submit" class="button-red">{{ action }}</button>
+            <a href="{{ url_for('admin_news') }}" class="button-red" style="background:#fff;color:#c62828;border:1.5px solid #c62828;margin-left:1em;">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
