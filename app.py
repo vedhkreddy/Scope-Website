@@ -46,10 +46,21 @@ def publications():
     pubs = sort_publications(content.get('publications', []))
     return render_template('publications.html', publications=pubs, content=content)
 
+
 @app.route('/news')
 def news():
     content = load_content()
     return render_template('news.html', content=content)
+
+# SITN/news article detail view
+@app.route('/news/<news_id>')
+def news_detail(news_id):
+    content = load_content()
+    news_list = content.get('news', [])
+    article = next((n for n in news_list if n['id'] == news_id), None)
+    if not article:
+        return render_template('404.html'), 404
+    return render_template('news_detail.html', article=article, content=content)
 
 
 import markdown2

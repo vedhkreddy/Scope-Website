@@ -5,19 +5,20 @@
 <div class="news-grid">
     {% if content.news and content.news|length > 0 %}
         {% for n in content.news %}
-        <div class="news-card">
-            {% if n.image_url %}
-                <img src="{{ n.image_url }}" alt="{{ n.title }} Banner" class="news-banner">
-            {% else %}
-                <div class="news-banner" style="background:#eee;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:1.2em;">No Image</div>
-            {% endif %}
-            <div class="news-content">
-                <div class="news-title">{{ n.title }}</div>
-                <div class="news-meta">By {{ n.author }}</div>
-                <div class="news-preview">{{ n.preview }}</div>
-                <!-- Future: <a href="#" class="button-red">Read More</a> -->
+        <a href="{{ url_for('news_detail', news_id=n.id) }}" class="news-card-link" style="text-decoration:none;color:inherit;">
+            <div class="news-card">
+                {% if n.image_url %}
+                    <img src="{{ n.image_url }}" alt="{{ n.title }} Banner" class="news-banner">
+                {% else %}
+                    <div class="news-banner" style="background:#eee;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:1.2em;">No Image</div>
+                {% endif %}
+                <div class="news-content">
+                    <div class="news-title">{{ n.title }}</div>
+                    <div class="news-meta">By {{ n.author }}</div>
+                    <div class="news-preview">{{ n.preview }}</div>
+                </div>
             </div>
-        </div>
+        </a>
         {% endfor %}
     {% else %}
         <div style="color:#888; text-align:center; width:100%; padding:2em 0;">No news articles yet.</div>
