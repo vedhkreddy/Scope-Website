@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card" style="max-width:500px;margin:2.5rem auto 0 auto;">
+    <h2>Edit Site Title & Rufus</h2>
+    <form method="post" enctype="multipart/form-data">
+        <label>Site Title<br>
+            <input type="text" name="site_title" value="{{ site_title }}" required style="width:100%;padding:0.6em;margin-bottom:1em;">
+        </label>
+        <label>Rufus Image (SVG or PNG)<br>
+            {% if mascot_svg_url %}
+                <img src="{{ mascot_svg_url }}" alt="Rufus" style="height:60px; margin-bottom:0.5em; display:block;">
+            {% endif %}
+            <input type="file" name="mascot" accept=".svg,.png" style="margin-bottom:1em;">
+        </label>
+        <div style="margin-top:1.5em;">
+            <button type="submit" class="button-red">Save</button>
+            <a href="{{ url_for('admin') }}" class="button-red" style="background:#fff;color:#c62828;border:1.5px solid #c62828;margin-left:1em;">Cancel</a>
+        </div>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div style="margin-top:1em;">
+        {% for category, message in messages %}
+          <div style="color: #c62828; font-weight: 500;">{{ message }}</div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+</div>
+{% endblock %}

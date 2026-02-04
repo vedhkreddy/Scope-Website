@@ -1,3 +1,4 @@
+
 import os
 import json
 from flask import Flask, render_template, request, redirect, url_for, session, flash, send_from_directory
@@ -29,10 +30,67 @@ def save_content(data):
     with open(CONTENT_PATH, 'w') as f:
         json.dump(data, f, indent=2)
 
+
+# Homepage with current edition and title
 @app.route('/')
 def home():
     content = load_content()
-    return render_template('home.html', content=content)
+    current_edition = content.get('current_edition', '')
+    current_edition_title = content.get('current_edition_title', '')
+    current_edition_pdf_url = content.get('current_edition_pdf_url', '')
+    return render_template('home.html', content=content, current_edition=current_edition, current_edition_title=current_edition_title, current_edition_pdf_url=current_edition_pdf_url)
+
+
+# Admin: Edit current edition and title
+
+@app.route('/admin/edition', methods=['GET', 'POST'])
+def admin_edition():
+    if 'admin' not in session:
+        return redirect(url_for('admin'))
+    content = load_content()
+    current_edition = content.get('current_edition', '')
+    current_edition_title = content.get('current_edition_title', '')
+    current_edition_pdf_url = content.get('current_edition_pdf_url', '')
+    if request.method == 'POST':
+        new_edition = request.form.get('current_edition', '').strip()
+        new_title = request.form.get('current_edition_title', '').strip()
+        pdf = request.files.get('pdf')
+        # Validation
+        if not new_edition or not new_title:
+            flash('Both fields are required.', 'danger')
+            return render_template('admin_edition_form.html', current_edition=new_edition, current_edition_title=new_title, current_edition_pdf_url=current_edition_pdf_url, content=content)
+        # Handle PDF upload
+        pdf_url = current_edition_pdf_url
+        if pdf and pdf.filename:
+            if not allowed_file(pdf.filename, ALLOWED_PDF_EXTENSIONS):
+                flash('Please upload a valid PDF file.', 'danger')
+                return render_template('admin_edition_form.html', current_edition=new_edition, current_edition_title=new_title, current_edition_pdf_url=current_edition_pdf_url, content=content)
+            # Save new PDF
+            import uuid
+            from werkzeug.utils import secure_filename
+            pdf_filename = f"edition_{uuid.uuid4().hex}_{secure_filename(pdf.filename)}"
+            pdf_path = os.path.join(app.config['PDF_FOLDER'], pdf_filename)
+            pdf.save(pdf_path)
+            pdf_url = f"/static/pdfs/{pdf_filename}"
+            # Delete old PDF if it exists and is not the same as the new one
+            if current_edition_pdf_url and current_edition_pdf_url != pdf_url:
+                try:
+                    old_pdf_path = os.path.join(app.root_path, current_edition_pdf_url.lstrip('/'))
+                    if os.path.exists(old_pdf_path):
+                        os.remove(old_pdf_path)
+                except Exception as e:
+                    flash(f'Warning: Could not delete old PDF. ({e})', 'warning')
+        elif not current_edition_pdf_url:
+            flash('A PDF file is required for the edition.', 'danger')
+            return render_template('admin_edition_form.html', current_edition=new_edition, current_edition_title=new_title, current_edition_pdf_url=current_edition_pdf_url, content=content)
+        # Save changes
+        content['current_edition'] = new_edition
+        content['current_edition_title'] = new_title
+        content['current_edition_pdf_url'] = pdf_url
+        save_content(content)
+        flash('Edition info updated!', 'success')
+        return redirect(url_for('admin'))
+    return render_template('admin_edition_form.html', current_edition=current_edition, current_edition_title=current_edition_title, current_edition_pdf_url=current_edition_pdf_url, content=content)
 
 
 from datetime import datetime
@@ -85,7 +143,7 @@ def admin_submission_guide():
         save_content(content)
         flash('Submission guide updated!', 'success')
         return redirect(url_for('admin_submission_guide'))
-    return render_template('admin_submission_guide.html', guide_md=guide_md)
+    return render_template('admin_submission_guide.html', guide_md=guide_md, content=content)
 
 
 def sort_about(about):
@@ -104,7 +162,7 @@ def admin_about():
         return redirect(url_for('admin'))
     content = load_content()
     team = sort_about(content.get('about', []))
-    return render_template('admin_about_list.html', team=team)
+    return render_template('admin_about_list.html', team=team, content=content)
 
 
 @app.route('/admin/about/add', methods=['GET', 'POST'])
@@ -133,7 +191,7 @@ def admin_about_add():
         save_content(content)
         flash('Team member added!', 'success')
         return redirect(url_for('admin_about'))
-    return render_template('admin_about_form.html', action='Add', member=None)
+    return render_template('admin_about_form.html', action='Add', member=None, content=content)
 
 
 @app.route('/admin/about/edit/<member_id>', methods=['GET', 'POST'])
@@ -157,7 +215,7 @@ def admin_about_edit(member_id):
         save_content(content)
         flash('Team member updated!', 'success')
         return redirect(url_for('admin_about'))
-    return render_template('admin_about_form.html', action='Edit', member=member)
+    return render_template('admin_about_form.html', action='Edit', member=member, content=content)
 
 @app.route('/admin/about/delete/<member_id>', methods=['POST'])
 def admin_about_delete(member_id):
@@ -237,7 +295,7 @@ def admin_publications():
         return redirect(url_for('admin'))
     content = load_content()
     pubs = sort_publications(content.get('publications', []))
-    return render_template('admin_publications_list.html', publications=pubs)
+    return render_template('admin_publications_list.html', publications=pubs, content=content)
 
 @app.route('/admin/publications/add', methods=['GET', 'POST'])
 def admin_publications_add():
@@ -280,7 +338,7 @@ def admin_publications_add():
         save_content(content)
         flash('Publication added!', 'success')
         return redirect(url_for('admin_publications'))
-    return render_template('admin_publications_form.html', action='Add', pub=None)
+    return render_template('admin_publications_form.html', action='Add', pub=None, content=content)
 
 @app.route('/admin/publications/edit/<pub_id>', methods=['GET', 'POST'])
 def admin_publications_edit(pub_id):
@@ -314,7 +372,7 @@ def admin_publications_edit(pub_id):
         save_content(content)
         flash('Publication updated!', 'success')
         return redirect(url_for('admin_publications'))
-    return render_template('admin_publications_form.html', action='Edit', pub=pub)
+    return render_template('admin_publications_form.html', action='Edit', pub=pub, content=content)
 
 @app.route('/admin/publications/delete/<pub_id>', methods=['POST'])
 def admin_publications_delete(pub_id):
@@ -335,7 +393,7 @@ def admin_news():
     if 'admin' not in session:
         return redirect(url_for('admin'))
     content = load_content()
-    return render_template('admin_news_list.html', news=content.get('news', []))
+    return render_template('admin_news_list.html', news=content.get('news', []), content=content)
 
 @app.route('/admin/news/add', methods=['GET', 'POST'])
 def admin_news_add():
@@ -367,7 +425,7 @@ def admin_news_add():
         save_content(content)
         flash('Article added!', 'success')
         return redirect(url_for('admin_news'))
-    return render_template('admin_news_form.html', action='Add', news_item=None)
+    return render_template('admin_news_form.html', action='Add', news_item=None, content=content)
 
 @app.route('/admin/news/edit/<news_id>', methods=['GET', 'POST'])
 def admin_news_edit(news_id):
@@ -393,7 +451,7 @@ def admin_news_edit(news_id):
         save_content(content)
         flash('Article updated!', 'success')
         return redirect(url_for('admin_news'))
-    return render_template('admin_news_form.html', action='Edit', news_item=news_item)
+    return render_template('admin_news_form.html', action='Edit', news_item=news_item, content=content)
 
 @app.route('/admin/news/delete/<news_id>', methods=['POST'])
 def admin_news_delete(news_id):
@@ -409,6 +467,49 @@ def admin_news_delete(news_id):
     else:
         flash('Article not found.', 'danger')
     return redirect(url_for('admin_news'))
+
+# Admin: Edit site title and Rufus image
+@app.route('/admin/site', methods=['GET', 'POST'])
+def admin_site():
+    if 'admin' not in session:
+        return redirect(url_for('admin'))
+    content = load_content()
+    site_title = content.get('site', {}).get('title', '')
+    mascot_svg_url = content.get('site', {}).get('mascot_svg_url', '')
+    if request.method == 'POST':
+        new_title = request.form.get('site_title', '').strip()
+        mascot = request.files.get('mascot')
+        # Validation
+        if not new_title:
+            flash('Site title is required.', 'danger')
+            return render_template('admin_site_form.html', site_title=new_title, mascot_svg_url=mascot_svg_url, content=content)
+        # Handle mascot upload
+        new_mascot_url = mascot_svg_url
+        if mascot and mascot.filename:
+            ext = mascot.filename.rsplit('.', 1)[-1].lower()
+            if ext not in ['svg', 'png']:
+                flash('Mascot must be SVG or PNG.', 'danger')
+                return render_template('admin_site_form.html', site_title=new_title, mascot_svg_url=mascot_svg_url)
+            import uuid
+            mascot_filename = f"rufus_{uuid.uuid4().hex}_{secure_filename(mascot.filename)}"
+            mascot_path = os.path.join(app.config['UPLOAD_FOLDER'], mascot_filename)
+            mascot.save(mascot_path)
+            new_mascot_url = f"/static/uploads/{mascot_filename}"
+            # Delete old mascot if not default
+            if mascot_svg_url and mascot_svg_url != new_mascot_url:
+                try:
+                    old_path = os.path.join(app.root_path, mascot_svg_url.lstrip('/'))
+                    if os.path.exists(old_path):
+                        os.remove(old_path)
+                except Exception as e:
+                    flash(f'Warning: Could not delete old mascot. ({e})', 'warning')
+        # Save changes
+        content.setdefault('site', {})['title'] = new_title
+        content['site']['mascot_svg_url'] = new_mascot_url
+        save_content(content)
+        flash('Site info updated!', 'success')
+        return redirect(url_for('admin'))
+    return render_template('admin_site_form.html', site_title=site_title, mascot_svg_url=mascot_svg_url, content=content)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

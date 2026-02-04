@@ -11,9 +11,14 @@
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-logo">
-                <!-- Placeholder for Rufus mascot -->
-                <div class="rufus-placeholder">Rufus</div>
-                <span class="site-title">The Scope</span>
+                <a href="/" style="display:flex;align-items:center;text-decoration:none;color:inherit;">
+                    {% if content.site.mascot_svg_url %}
+                        <img src="{{ content.site.mascot_svg_url }}" alt="Rufus" class="rufus-placeholder" style="height:36px;width:36px;object-fit:cover;border-radius:50%;margin-right:10px;">
+                    {% else %}
+                        <div class="rufus-placeholder">Rufus</div>
+                    {% endif %}
+                    <span class="site-title">{{ content.site.title }}</span>
+                </a>
             </div>
             <ul class="navbar-links">
                 <li><a href="/" {% if request.path == '/' %}class="active"{% endif %}>Home</a></li>
