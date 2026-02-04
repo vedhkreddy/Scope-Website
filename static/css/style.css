@@ -1,3 +1,66 @@
+/* About Us Card Layout */
+.about-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0 2.5rem 0;
+}
+.about-card {
+    background: #fff;
+    border: 1.5px solid #222;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(34,40,60,0.04);
+    padding: 2rem 1.2rem 1.2rem 1.2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: box-shadow 0.2s;
+}
+.about-card:hover {
+    box-shadow: 0 4px 16px rgba(198,40,40,0.10);
+    border-color: #c62828;
+}
+.about-card-photo-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.about-card-photo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2.5px solid #c62828;
+    background: #f7f7f7;
+    box-shadow: 0 1px 4px rgba(34,40,60,0.07);
+}
+.about-card-photo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #f7f7f7;
+    color: #c62828;
+    font-size: 2.2em;
+    font-weight: 600;
+    border: 2.5px solid #c62828;
+}
+.about-card-name {
+    font-size: 1.15em;
+    font-weight: 600;
+    margin-bottom: 0.3em;
+    color: #222;
+}
+.about-card-role {
+    font-size: 1em;
+    color: #c62828;
+    font-weight: 500;
+    margin-bottom: 0.2em;
+}
 /* News Grid Layout */
 .news-grid {
     display: grid;

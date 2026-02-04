@@ -7,19 +7,20 @@
 </div>
 <div class="card" style="max-width:900px;margin:2rem auto 0 auto;">
     <h2>Editorial Team</h2>
-    <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+    <div class="about-cards-container">
         {% if team and team|length > 0 %}
-            {% for m in team %}
-            <div style="flex: 1 1 200px; text-align: center;">
-                {% if m.image_url %}
-                    <img src="{{ m.image_url }}" alt="{{ m.name }} Photo" style="border-radius: 50%; margin-bottom: 0.5rem; height:100px; width:100px; object-fit:cover;">
-                {% endif %}
-                <h3>{{ m.name }}</h3>
-                <p>{{ m.role }}<br><span style="font-size:0.95em; color:#c62828;">{{ m.bio }}</span></p>
+            {% for m in team|sort(attribute='order') %}
+            <div class="about-card">
+                <div class="about-card-photo-wrap">
+                    {% if m.image_url %}
+                        <img src="{{ m.image_url }}" alt="{{ m.name }} Photo" class="about-card-photo">
+                    {% else %}
+                        <div class="about-card-photo about-card-photo-placeholder">?</div>
+                    {% endif %}
                 </div>
-                    <h3>{{ m.name }}</h3>
-                    <p>{{ m.role }}<br></p>
-                </div>
+                <div class="about-card-name">{{ m.name }}</div>
+                <div class="about-card-role">{{ m.role }}</div>
+            </div>
             {% endfor %}
         {% else %}
             <div style="color:#888; text-align:center; width:100%; padding:2em 0;">No team members yet.</div>
