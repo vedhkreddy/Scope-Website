@@ -1,3 +1,5 @@
+from flask import abort
+
 
 import os
 import json
@@ -29,6 +31,12 @@ def load_content():
 def save_content(data):
     with open(CONTENT_PATH, 'w') as f:
         json.dump(data, f, indent=2)
+
+# Global error handler for unhandled exceptions
+@app.errorhandler(Exception)
+def handle_exception(e):
+    # Optionally log the error here
+    return render_template('error.html'), 500
 
 
 # Homepage with current edition and title
@@ -512,5 +520,5 @@ def admin_site():
     return render_template('admin_site_form.html', site_title=site_title, mascot_svg_url=mascot_svg_url, content=content)
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT', 5002))
     app.run(host='0.0.0.0', port=port, debug=True)
