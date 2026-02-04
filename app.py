@@ -276,6 +276,7 @@ def require_admin():
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     if 'admin' not in session:
+        content = load_content()
         if request.method == 'POST':
             password = request.form.get('password')
             if password == ADMIN_PASSWORD:
@@ -283,7 +284,7 @@ def admin():
                 return redirect(url_for('admin'))
             else:
                 flash('Incorrect password.', 'danger')
-        return render_template('admin_login.html')
+        return render_template('admin_login.html', content=content)
     content = load_content()
     return render_template('admin_dashboard.html', content=content)
 
@@ -520,5 +521,5 @@ def admin_site():
     return render_template('admin_site_form.html', site_title=site_title, mascot_svg_url=mascot_svg_url, content=content)
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5002))
+    port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
