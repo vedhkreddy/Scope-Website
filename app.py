@@ -177,6 +177,7 @@ def admin_about():
 def admin_about_add():
     if 'admin' not in session:
         return redirect(url_for('admin'))
+    content = load_content()
     if request.method == 'POST':
         name = request.form.get('name', '').strip()
         role = request.form.get('role', '').strip()
@@ -186,7 +187,6 @@ def admin_about_add():
             filename = f"about_{uuid.uuid4().hex}_{secure_filename(image.filename)}"
             image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             image_url = f"/static/uploads/{filename}"
-        content = load_content()
         order = len(content.get('about', []))
         member = {
             'id': uuid.uuid4().hex,
@@ -310,6 +310,7 @@ def admin_publications():
 def admin_publications_add():
     if 'admin' not in session:
         return redirect(url_for('admin'))
+    content = load_content()
     if request.method == 'POST':
         title = request.form.get('title', '').strip()
         date = request.form.get('date', datetime.now().strftime('%Y-%m-%d'))
@@ -333,7 +334,7 @@ def admin_publications_add():
             cover_url = f"/static/uploads/{cover_filename}"
         if errors:
             flash(' '.join(errors), 'danger')
-            return render_template('admin_publications_form.html', action='Add', pub=None)
+            return render_template('admin_publications_form.html', action='Add', pub=None, content=content)
         pub_item = {
             'id': uuid.uuid4().hex,
             'title': title,
@@ -342,7 +343,6 @@ def admin_publications_add():
             'pdf_url': pdf_url,
             'cover_url': cover_url
         }
-        content = load_content()
         content['publications'].insert(0, pub_item)
         save_content(content)
         flash('Publication added!', 'success')
@@ -408,6 +408,7 @@ def admin_news():
 def admin_news_add():
     if 'admin' not in session:
         return redirect(url_for('admin'))
+    content = load_content()
     if request.method == 'POST':
         title = request.form.get('title', '').strip()
         author = request.form.get('author', '').strip()
@@ -429,7 +430,6 @@ def admin_news_add():
             'date': date,
             'image_url': image_url
         }
-        content = load_content()
         content['news'].insert(0, news_item)
         save_content(content)
         flash('Article added!', 'success')
@@ -521,5 +521,5 @@ def admin_site():
     return render_template('admin_site_form.html', site_title=site_title, mascot_svg_url=mascot_svg_url, content=content)
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT', 5002))
     app.run(host='0.0.0.0', port=port, debug=True)
