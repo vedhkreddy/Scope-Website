@@ -35,8 +35,11 @@ def save_content(data):
 # Global error handler for unhandled exceptions
 @app.errorhandler(Exception)
 def handle_exception(e):
-    # Optionally log the error here
-    return render_template('error.html'), 500
+    try:
+        content = load_content()
+    except Exception:
+        content = {'site': {'title': 'The Scope', 'mascot_svg_url': ''}}
+    return render_template('error.html', content=content), 500
 
 
 # Homepage with current edition and title
@@ -125,7 +128,7 @@ def news_detail(news_id):
     news_list = content.get('news', [])
     article = next((n for n in news_list if n['id'] == news_id), None)
     if not article:
-        return render_template('404.html'), 404
+        return render_template('error.html', content=content), 404
     return render_template('news_detail.html', article=article, content=content)
 
 
@@ -372,7 +375,7 @@ def admin_publications_edit(pub_id):
             pub['pdf_url'] = f"/static/pdfs/{pdf_filename}"
         elif pdf and not allowed_file(pdf.filename, ALLOWED_PDF_EXTENSIONS):
             flash('Invalid PDF file.', 'danger')
-            return render_template('admin_publications_form.html', action='Edit', pub=pub)
+            return render_template('admin_publications_form.html', action='Edit', pub=pub, content=content)
         # Handle cover image (optional)
         if cover and allowed_file(cover.filename, ALLOWED_IMAGE_EXTENSIONS):
             cover_filename = f"pubcover_{uuid.uuid4().hex}_{secure_filename(cover.filename)}"
@@ -498,7 +501,7 @@ def admin_site():
             ext = mascot.filename.rsplit('.', 1)[-1].lower()
             if ext not in ['svg', 'png']:
                 flash('Mascot must be SVG or PNG.', 'danger')
-                return render_template('admin_site_form.html', site_title=new_title, mascot_svg_url=mascot_svg_url)
+                return render_template('admin_site_form.html', site_title=new_title, mascot_svg_url=mascot_svg_url, content=content)
             import uuid
             mascot_filename = f"rufus_{uuid.uuid4().hex}_{secure_filename(mascot.filename)}"
             mascot_path = os.path.join(app.config['UPLOAD_FOLDER'], mascot_filename)
@@ -521,5 +524,5 @@ def admin_site():
     return render_template('admin_site_form.html', site_title=site_title, mascot_svg_url=mascot_svg_url, content=content)
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5002))
+    port = int(os.environ.get('PORT', 5005))
     app.run(host='0.0.0.0', port=port, debug=True)
