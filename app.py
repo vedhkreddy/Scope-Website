@@ -45,6 +45,7 @@ def handle_404(e):
 
 @app.errorhandler(Exception)
 def handle_exception(e):
+    app.logger.error(f'Unhandled exception: {e}', exc_info=True)
     return render_template('error.html'), 500
 
 
