@@ -3,8 +3,8 @@
 <h1 class="accent">Science in the News</h1>
 
 <div class="news-grid">
-    {% if content.news and content.news|length > 0 %}
-        {% for n in content.news %}
+    {% if news_articles and news_articles|length > 0 %}
+        {% for n in news_articles %}
         <a href="{{ url_for('news_detail', news_id=n.id) }}" class="news-card-link" style="text-decoration:none;color:inherit;">
             <div class="news-card">
                 {% if n.image_url %}

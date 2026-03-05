@@ -12,12 +12,12 @@
         <div class="navbar-container">
             <div class="navbar-logo">
                 <a href="/" style="display:flex;align-items:center;text-decoration:none;color:inherit;">
-                    {% if content.site.mascot_svg_url %}
-                        <img src="{{ content.site.mascot_svg_url }}" alt="Rufus" class="rufus-placeholder" style="height:36px;width:36px;object-fit:cover;border-radius:50%;margin-right:10px;">
+                    {% if site.mascot_url %}
+                        <img src="{{ site.mascot_url }}" alt="Rufus" class="rufus-placeholder" style="height:36px;width:36px;object-fit:cover;border-radius:50%;margin-right:10px;">
                     {% else %}
                         <div class="rufus-placeholder">Rufus</div>
                     {% endif %}
-                    <span class="site-title">{{ content.site.title }}</span>
+                    <span class="site-title">{{ site.title }}</span>
                 </a>
             </div>
             <ul class="navbar-links">

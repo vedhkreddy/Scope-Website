@@ -3,13 +3,13 @@
 <h1 class="accent">About Us</h1>
 <div class="card" style="max-width:900px;margin:2rem auto 0 auto;">
     <h2>Our Mission</h2>
-    <p>{{ content.site.mission }}</p>
+    <p>{{ site.mission }}</p>
 </div>
 <div class="card" style="max-width:900px;margin:2rem auto 0 auto;">
     <h2>Editorial Team</h2>
     <div class="about-cards-container">
         {% if team and team|length > 0 %}
-            {% for m in team|sort(attribute='order') %}
+            {% for m in team|sort(attribute='sort_order') %}
             <div class="about-card">
                 <div class="about-card-photo-wrap">
                     {% if m.image_url %}

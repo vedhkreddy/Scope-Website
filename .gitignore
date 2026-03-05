@@ -4,5 +4,6 @@ instance/
 .env
 *.sqlite3
 .DS_Store
+venv/
 /static/uploads/
 /static/pdfs/

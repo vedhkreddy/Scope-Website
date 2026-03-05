@@ -23,7 +23,7 @@
                 <td style="padding:0.5em;">{{ m.name }}</td>
                 <td style="padding:0.5em;">{{ m.role }}</td>
                 <td style="padding:0.5em;">{{ m.bio }}</td>
-                <td style="padding:0.5em;">{{ m.order + 1 }}</td>
+                <td style="padding:0.5em;">{{ m.sort_order + 1 }}</td>
                 <td style="padding:0.5em;">
                     <a href="{{ url_for('admin_about_edit', member_id=m.id) }}" class="button-red" style="padding:0.3em 0.7em; font-size:0.95em;">Edit</a>
                     <form method="post" action="{{ url_for('admin_about_delete', member_id=m.id) }}" style="display:inline;">

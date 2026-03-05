@@ -1,3 +1,5 @@
 Flask
 gunicorn
 markdown2
+supabase
+python-dotenv
