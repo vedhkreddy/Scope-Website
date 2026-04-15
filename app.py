@@ -15,7 +15,7 @@ import db
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SCOPE_SECRET_KEY', 'dev-secret')
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB
+app.config['MAX_CONTENT_LENGTH'] = 64 * 1024 * 1024  # 64 MB
 
 ALLOWED_IMAGE_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'svg'}
 ALLOWED_PDF_EXTENSIONS = {'pdf'}
