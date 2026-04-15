@@ -13,7 +13,7 @@
         <div style="flex:2;min-width:220px;">
             <h2>{{ p.title }}</h2>
             <p><em>Published: {{ p.date }}</em></p>
-            <p>{{ p.description }}</p>
+            <p style="white-space: pre-line;">{{ p.description }}</p>
             {% if p.pdf_url %}
                 <a href="{{ p.pdf_url }}" class="button-red" target="_blank" download>Download PDF</a>
             {% endif %}
